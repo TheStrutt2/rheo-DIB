@@ -4,3 +4,5 @@ Code for analysis of spectra in the wavelength region of 200 - 1000 nm. Absorban
 
 Permeability of lipid interface to variable analytes is described in terms of P - the permeability coefficent.
 
+Updated 10/07/19
+
