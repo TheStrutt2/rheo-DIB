@@ -7,6 +7,8 @@ from scipy.optimize import curve_fit
 from scipy.integrate import odeint
 import pandas as pd
 
+# editing
+
 # Represents Ficks first law as interpreted in terms of RheoDib permeability
 def PermeabilityRheoDIB (VA,A,CEQ,CAt,dCdt):
     "Returns a value for P"
