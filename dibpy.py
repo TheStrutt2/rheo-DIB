@@ -197,11 +197,11 @@ def filterdatframe(dataframe, count, upper, lower):
     return linearP, pm, pc, filtered_pconc, filtered_ptime  #returns the m and c
 
 
-def performPermCalc(volume, volume_se, average_DIBarea, average_DIBarease, donor_0conc, Eq, conc_error):
+def performPermCalc(volume, volume_se, average_DIBarea, average_DIBarease, donor_0conc, Eq, conc_error,no_files, no_points):
     # this is where the dataframe is built
     dataframe = []  
-    for i in range (0, 1):            # no. of folders we are looking in
-        values = filterdatframe(all_solveddata,i,500,0)  # this will vary the timestamps in each file as the point at which each files reaches 0.6mM
+    for i in range (0, no_files):            # no. of folders we are looking in
+        values = filterdatframe(all_solveddata,i,100,50)
         conc = values[3]
         filt_time = values[4]
         slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(filt_time, conc) # perform scipy statistics on fit
@@ -209,9 +209,9 @@ def performPermCalc(volume, volume_se, average_DIBarea, average_DIBarease, donor
         permerrorvalues = []
         timevalues = []
         for x in conc, filt_time:
-            concA = conc[range(0,8)]    # adjust this value for number of points within the conc range
+            concA = conc[range(0,no_points)]    # adjust this value for number of points within the conc range
             concD = donor_0conc - concA
-            timefor = filt_time[range(0,8)]
+            timefor = filt_time[range(0,no_points)]
             Pvalue = PermeabilityRheoDIB(volume,average_DIBarea,Eq,concA,slope)
             Perror = Propagation_of_P_error(Pvalue,volume_se,volume,average_DIBarease,
                                             average_DIBarea,std_err,slope,conc_error,Eq,concA)
